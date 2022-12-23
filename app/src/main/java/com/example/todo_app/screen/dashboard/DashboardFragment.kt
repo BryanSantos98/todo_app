@@ -22,8 +22,26 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initViews()
+    }
+
+    private fun initViews() {
+//        binding.tvDay.text = "Today"
+//        binding.tvDate.text = "18 jun.2019. Tuesday"
+
+
+        // TODO Colocar no tvDay o texto "Today"
+        // TODO Colocar no tvDate a data do dispositivo no formato brasileiro dd/mm/yyyy
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
