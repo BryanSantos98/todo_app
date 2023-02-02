@@ -4,4 +4,7 @@
     <string name="menu_assets">Assets</string>
     <string name="menu_help_center">Help center</string>
     <string name="menu_agents">Agents</string>
+    <string name="due_today">Due today</string>
+    <string name="sort_by">Sort By</string>
+    <string name="for_title">For</string>
 </resources>
