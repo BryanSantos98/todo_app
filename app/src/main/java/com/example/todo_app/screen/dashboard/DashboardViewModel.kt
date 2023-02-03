@@ -1,15 +1,21 @@
 package com.example.todo_app.screen.dashboard
 
-import android.util.Log
+import android.content.Context
 import android.view.MenuItem
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.todo_app.R
+import com.example.todo_app.base.BaseViewModel
+import com.example.todo_app.data.model.home.CardInfoData
+import com.example.todo_app.repositories.home.HomeDashboardRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor() : ViewModel() {
+class DashboardViewModel @Inject constructor(
+    private val homeRepository: HomeDashboardRepository
+) : BaseViewModel() {
 
     val switchFragment = MutableLiveData<Int>()
     val setMenuIcon = MutableLiveData<Pair<Int, Boolean>>()
@@ -17,6 +23,11 @@ class DashboardViewModel @Inject constructor() : ViewModel() {
     val setAssetsStyle = MutableLiveData<Unit>()
     val setHelpCenterStyle = MutableLiveData<Unit>()
     val setAgentsStyle = MutableLiveData<Unit>()
+
+    val homeOverdueData = MutableLiveData<CardInfoData>()
+    val homeTodoData = MutableLiveData<CardInfoData>()
+    val homeOpenData = MutableLiveData<CardInfoData>()
+    val homeDueTodayData = MutableLiveData<CardInfoData>()
 
     fun selectBottomNavItem(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
@@ -56,11 +67,31 @@ class DashboardViewModel @Inject constructor() : ViewModel() {
 
     fun setScreenDataAndStyle(pageIndex: Int) {
         when (pageIndex) {
-            DashboardFragment.HOME_INDEX -> setHomeStyle.postValue(Unit)
-            DashboardFragment.ASSETS_INDEX -> setAssetsStyle.postValue(Unit)
-            DashboardFragment.HELP_CENTER_INDEX -> setHelpCenterStyle.postValue(Unit)
-            DashboardFragment.AGENTS_INDEX -> setAgentsStyle.postValue(Unit)
+            DashboardFragment.HOME_INDEX -> {
+                setHomeStyle.postValue(Unit)
+            }
+            DashboardFragment.ASSETS_INDEX -> {
+                setAssetsStyle.postValue(Unit)
+            }
+            DashboardFragment.HELP_CENTER_INDEX -> {
+                setHelpCenterStyle.postValue(Unit)
+            }
+            DashboardFragment.AGENTS_INDEX -> {
+                setAgentsStyle.postValue(Unit)
+            }
         }
+    }
 
+    fun setHomeCartData(context: Context) {
+        viewModelScope.launch {
+            homeRepository.getCardInfoList().forEach { cardInfo ->
+                when (cardInfo.status) {
+                    context.getString(CardInfoData.OVERDUE_STATUS) -> homeOverdueData.postValue(cardInfo)
+                    context.getString(CardInfoData.TODO_STATUS) -> homeTodoData.postValue(cardInfo)
+                    context.getString(CardInfoData.OPEN_STATUS) -> homeOpenData.postValue(cardInfo)
+                    context.getString(CardInfoData.DUE_TODAY_STATUS) -> homeDueTodayData.postValue(cardInfo)
+                }
+            }
+        }
     }
 }

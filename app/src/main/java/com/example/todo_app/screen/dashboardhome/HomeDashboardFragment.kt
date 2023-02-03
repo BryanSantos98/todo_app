@@ -3,25 +3,23 @@ package com.example.todo_app.screen.dashboardhome
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import com.example.todo_app.base.BaseFragment
+import com.example.todo_app.data.model.home.HomeDashboardModel
 import com.example.todo_app.databinding.FragmentHomeDashboardBinding
+import com.example.todo_app.screen.dashboardhome.adapter.HomeDashboardAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeDashboardFragment : Fragment(){
-    private var _binding: FragmentHomeDashboardBinding? = null
-    private val binding get() = _binding!!
+@AndroidEntryPoint
+class HomeDashboardFragment : BaseFragment<FragmentHomeDashboardBinding>() {
 
-    val viewModel: HomeDashboardViewModel by viewModels()
+    override val bindingInflater: (LayoutInflater) -> FragmentHomeDashboardBinding =
+        FragmentHomeDashboardBinding::inflate
+    override val viewModel: HomeDashboardViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeDashboardBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val adapter = HomeDashboardAdapter()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,16 +28,22 @@ class HomeDashboardFragment : Fragment(){
         initObservers()
     }
 
-    private fun initViews() {
-
+    override fun initViews() {
+        viewModel.getInitialData()
     }
 
-    private fun initObservers() {
-
+    override fun initObservers() {
+        viewModel.dashboardList.observe(viewLifecycleOwner) { dashboardList ->
+            setupAdapter(dashboardList)
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupAdapter(data: List<HomeDashboardModel>) {
+        adapter.dataList = data
+        binding.rvHomeDashboard.adapter = adapter
+
+        adapter.onItemClick = {
+            Toast.makeText(requireContext(), "Teste de Clique", Toast.LENGTH_SHORT).show()
+        }
     }
 }
