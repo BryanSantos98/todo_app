@@ -4,4 +4,11 @@
     <string name="menu_assets">Assets</string>
     <string name="menu_help_center">Help center</string>
     <string name="menu_agents">Agents</string>
+    <string name="due_today">Due today</string>
+    <string name="sort_by">Sort By</string>
+    <string name="for_title">For</string>
+    <string name="overdue_status">overdue</string>
+    <string name="todo_status">to do</string>
+    <string name="open_status">open</string>
+    <string name="due_today_status">due today</string>
 </resources>

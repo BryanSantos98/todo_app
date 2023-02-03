@@ -69,12 +69,41 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initObservers() {
+        viewModel.homeOverdueData.observe(viewLifecycleOwner) { cardInfo ->
+            binding.apply {
+                includeDashboardCard.tvOverdueTitle.text = cardInfo.status
+                includeDashboardCard.tvOverdueNumber.text = cardInfo.number.toString()
+            }
+        }
+
+        viewModel.homeTodoData.observe(viewLifecycleOwner) { cardInfo ->
+            binding.apply {
+                includeDashboardCard.tvToDoTitle.text = cardInfo.status
+                includeDashboardCard.tvToDoNumber.text = cardInfo.number.toString()
+            }
+        }
+
+        viewModel.homeOpenData.observe(viewLifecycleOwner) { cardInfo ->
+            binding.apply {
+                includeDashboardCard.tvOpenTitle.text = cardInfo.status
+                includeDashboardCard.tvOpenNumber.text = cardInfo.number.toString()
+            }
+        }
+
+        viewModel.homeDueTodayData.observe(viewLifecycleOwner) { cardInfo ->
+            binding.apply {
+                includeDashboardCard.tvDueTodayTitle.text = cardInfo.status
+                includeDashboardCard.tvDueTodayNumber.text = cardInfo.number.toString()
+            }
+        }
+
         viewModel.setHomeStyle.observe(viewLifecycleOwner) {
             actualScreen = Type.HOME
             setScreenDataAndStyle(
                 screenTitle = "Inventory Management",
                 topImageBackground = R.drawable.dashboard_home_gradient
             )
+            viewModel.setHomeCartData(requireContext())
         }
 
         viewModel.setAssetsStyle.observe(viewLifecycleOwner) {
