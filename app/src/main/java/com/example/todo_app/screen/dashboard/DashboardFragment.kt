@@ -15,6 +15,8 @@ import com.example.todo_app.screen.dashboardagents.AgentsDashboardFragment
 import com.example.todo_app.screen.dashboardassets.AssetsDashboardFragment
 import com.example.todo_app.screen.dashboardhelpcenter.HelpCenterDashboardFragment
 import com.example.todo_app.screen.dashboardhome.HomeDashboardFragment
+import com.example.todo_app.util.TransitionAnimation
+import com.example.todo_app.util.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,6 +68,11 @@ class DashboardFragment : Fragment() {
     private fun initViews() {
         setViewPager()
         setBottomNavigationListener()
+
+        binding.ivAdd.setOnClickListener {
+            val directions = DashboardFragmentDirections.actionDashboardFragmentToCreateTaskFragment()
+            navigate(directions, animation = TransitionAnimation.TRANSLATE_FROM_DOWN)
+        }
     }
 
     private fun initObservers() {

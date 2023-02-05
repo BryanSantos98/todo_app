@@ -9,5 +9,15 @@
         tools:layout="@layout/fragment_dashboard"
         android:id="@+id/dashboardFragment"
         android:name="com.example.todo_app.screen.dashboard.DashboardFragment"
-        android:label="DashboardFragment" />
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createTaskFragment"
+        tools:layout="@layout/fragment_create_task"
+        android:name="com.example.todo_app.screen.createtask.CreateTaskFragment"
+        android:label="CreateTaskFragment" />
 </navigation>
