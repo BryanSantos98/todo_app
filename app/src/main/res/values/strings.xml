@@ -11,4 +11,8 @@
     <string name="todo_status">to do</string>
     <string name="open_status">open</string>
     <string name="due_today_status">due today</string>
+    <string name="software">software</string>
+    <string name="all_assets">All Assets</string>
+    <string name="hardware">hardware</string>
+    <string name="software2">software</string>
 </resources>
