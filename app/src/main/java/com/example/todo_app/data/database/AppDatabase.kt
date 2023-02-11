@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.todo_app.data.model.home.Task
+import com.example.todo_app.data.model.task.Task
 import com.example.todo_app.util.DateConverter
 
 /***
@@ -17,6 +17,14 @@ import com.example.todo_app.util.DateConverter
  *
  * sempre acessar o banco de dados de maneira assincrona
  * Thread {
+ * val app = requireActivity().application as App
+ * val dao = app.db.taskDao()
+ * dao.insertTask()
+ *
+ *  runOnUiThread {
+ *      executa algo na thread principal dentro da thread paralela
+ *  }
+ *
  *
  * }.start()
  *

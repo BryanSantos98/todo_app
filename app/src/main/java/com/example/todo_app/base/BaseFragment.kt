@@ -34,30 +34,19 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (mLayoutView == null) {
-            mViewBinding = bindingInflater.invoke(inflater)
-            mLayoutView = requireNotNull(mViewBinding).root
-        } else {
-            (mLayoutView?.parent as? ViewGroup)?.removeView(mLayoutView)
-        }
-        return mLayoutView
+        mViewBinding = bindingInflater.invoke(inflater)
+        return mViewBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initObservers()
-
         if (shouldAddBackPress) {
             setBackNavigation {
                 findNavController().navigateUp()
             }
         }
-
-        if (mLayoutIsCreated) {
-            initViews()
-            mLayoutIsCreated = true
-        }
+        initViews()
     }
 
     private fun setBackNavigation(onBackPressed: () -> Unit) {

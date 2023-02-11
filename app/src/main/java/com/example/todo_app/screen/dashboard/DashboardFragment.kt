@@ -1,6 +1,7 @@
 package com.example.todo_app.screen.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.example.todo_app.App
 import com.example.todo_app.R
+import com.example.todo_app.data.model.task.Task
 import com.example.todo_app.databinding.FragmentDashboardBinding
 import com.example.todo_app.screen.dashboard.adapter.ViewPagerAdapter
 import com.example.todo_app.screen.dashboardagents.AgentsDashboardFragment
@@ -69,8 +72,18 @@ class DashboardFragment : Fragment() {
         setViewPager()
         setBottomNavigationListener()
 
+        Thread {
+            val app = requireActivity().application as App
+            val dao = app.db.taskDao()
+            val response = dao.getTaskList(Task.TASK_LOW_PRIORITY)
+            requireActivity().runOnUiThread {
+                Log.e("testList", response.toString())
+            }
+        }.start()
+
         binding.ivAdd.setOnClickListener {
-            val directions = DashboardFragmentDirections.actionDashboardFragmentToCreateTaskFragment()
+            val directions =
+                DashboardFragmentDirections.actionDashboardFragmentToCreateTaskFragment()
             navigate(directions, animation = TransitionAnimation.TRANSLATE_FROM_DOWN)
         }
     }

@@ -25,4 +25,21 @@
     <color name="gray_600">#757575</color>
     <color name="gray_800">#636363</color>
 
+    <!--Task Status Color-->
+    <color name="task_todo">#36393F</color>
+    <color name="task_in_progress">#646FA1</color>
+    <color name="task_to_deliver">#7863A2</color>
+    <color name="task_in_review">#925A9F</color>
+    <color name="task_reproved">#B06163</color>
+    <color name="task_blocked">#C2715A</color>
+    <color name="task_completed">#4DB358</color>
+    <!--Task Status Color-->
+
+    <!--Task Priority Color -->
+    <color name="task_priority_low">#E0E0E0</color>
+    <color name="task_priority_medium">#FFD54F</color>
+    <color name="task_priority_high">#E57373</color>
+    <!--Task Priority Color -->
+
+
 </resources>

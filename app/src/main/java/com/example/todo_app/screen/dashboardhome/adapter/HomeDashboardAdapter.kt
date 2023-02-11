@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.example.todo_app.base.BaseAdapter
 import com.example.todo_app.base.ViewHolder
 import com.example.todo_app.data.model.home.HomeDashboardModel
+import com.example.todo_app.data.model.task.Task
 import com.example.todo_app.databinding.AdapterDashboardHomeBinding
 
 class HomeDashboardAdapter : BaseAdapter<AdapterDashboardHomeBinding, HomeDashboardModel>() {
@@ -23,8 +24,6 @@ class HomeDashboardAdapter : BaseAdapter<AdapterDashboardHomeBinding, HomeDashbo
     ) {
         holder.binding.apply {
             ivRangeColor.setBackgroundColor(root.context.getColor(data.statusColor))
-            ivType.setImageResource(data.typeIcon)
-            tvType.text = data.type
             ivStatus.backgroundTintList = ContextCompat.getColorStateList(root.context, data.statusColor)
             tvStatus.text = data.status
             tvTitle.text = data.description

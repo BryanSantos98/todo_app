@@ -11,4 +11,10 @@
     <string name="todo_status">to do</string>
     <string name="open_status">open</string>
     <string name="due_today_status">due today</string>
+
+    <!--Task Priority-->
+    <string name="task_priority_low">Low</string>
+    <string name="task_priority_medium">Medium</string>
+    <string name="task_priority_high">High</string>
+    <!--Task Priority-->
 </resources>
